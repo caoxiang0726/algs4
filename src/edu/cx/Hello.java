@@ -1,5 +1,7 @@
 package edu.cx;
 
+import edu.princeton.cs.algs4.BinarySearch;
+
 /**
  * Created by caoxiang on 2018/8/5.
  */
