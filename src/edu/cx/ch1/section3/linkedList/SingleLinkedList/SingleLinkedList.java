@@ -42,9 +42,32 @@ public class SingleLinkedList {
         return node;
     }
 
+    public Object addTail(Object node) { //
+        Node newTailNode = new Node(node);
+        if (null == head) {
+            head = newTailNode;
+        } else  {
+            while (null != head.next) {
+                head = head.next;
+            }
+            head.next = newTailNode;
+        }
+        size++;
+        return newTailNode;
+    }
+
     /**
      * 删
      */
+
+    //
+    public boolean delete(Node node){
+
+
+
+
+        return false;
+    }
 
 
     /**
@@ -72,8 +95,11 @@ public class SingleLinkedList {
 
     public static void main(String[] args) {
         SingleLinkedList linkedList = new SingleLinkedList();
-        linkedList.addHead("A");
-        linkedList.addHead("B");
+//        linkedList.addHead("A");
+//        linkedList.addHead("B");
+
+        linkedList.addTail("X");
+        linkedList.addTail("Y");
         linkedList.display();
 
     }
