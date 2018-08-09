@@ -69,27 +69,23 @@ public class SingleLinkedList {
         Node current = head;
         Node previous = head;
 
-        while (current.data != data){
+        while (current.data != data) {
             if (null == current.next) {
                 return false;//如果一直没匹配到
-            }else {
+            } else {
                 previous = current;
-                current = current.next;
+                current = current.next;//current执行下一个节点，上下两个句也能保证p比c靠前一个节点
             }
+        }
             //匹配到了对应的node
-
-            previous = current.next;
+            if (current == head) {
+                head = current.next;
+            }else {
+                previous.next = current.next;//将previous.next 指向当前节点下一个；当前节点垃圾回收。
+            }
             size--;
             return true;
 
-        }
-
-
-
-
-
-
-        return false;
     }
 
 
@@ -123,10 +119,15 @@ public class SingleLinkedList {
         linkedList.addHead("C");
         linkedList.addHead("D");
 
-       /* linkedList.addTail("W");
+        linkedList.addTail("W");
         linkedList.addTail("X");
         linkedList.addTail("Y");
-        linkedList.addTail("Z");*/
+        linkedList.addTail("Z");
+
+//        linkedList.delete("NO EXIST");//还有问题
+//        linkedList.delete("A");
+        linkedList.delete("B");
+//        linkedList.delete("D");
         linkedList.display();
 
     }
