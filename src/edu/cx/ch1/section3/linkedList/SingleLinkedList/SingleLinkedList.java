@@ -44,13 +44,14 @@ public class SingleLinkedList {
 
     public Object addTail(Object node) { //
         Node newTailNode = new Node(node);
+        Node current = head;
         if (null == head) {
             head = newTailNode;
         } else  {
-            while (null != head.next) {
-                head = head.next;
+            while (null != current.next) {//
+                current = current.next;//必须引入current
             }
-            head.next = newTailNode;
+            current.next = newTailNode;
         }
         size++;
         return newTailNode;
@@ -60,8 +61,30 @@ public class SingleLinkedList {
      * 删
      */
 
-    //
-    public boolean delete(Node node){
+    //可能data不在链表内
+    public boolean delete(Object data){
+        if (0 == size) {
+            return false;
+        }
+        Node current = head;
+        Node previous = head;
+
+        while (current.data != data){
+            if (null == current.next) {
+                return false;//如果一直没匹配到
+            }else {
+                previous = current;
+                current = current.next;
+            }
+            //匹配到了对应的node
+
+            previous = current.next;
+            size--;
+            return true;
+
+        }
+
+
 
 
 
@@ -85,7 +108,7 @@ public class SingleLinkedList {
                 System.out.print("[" + node.data + "]");
             } else {
                 System.out.print("[" + node.data + "]->");
-                node = head.next;
+                node = node.next;
             }
             size--;
         }
@@ -95,11 +118,15 @@ public class SingleLinkedList {
 
     public static void main(String[] args) {
         SingleLinkedList linkedList = new SingleLinkedList();
-//        linkedList.addHead("A");
-//        linkedList.addHead("B");
+        linkedList.addHead("A");
+        linkedList.addHead("B");
+        linkedList.addHead("C");
+        linkedList.addHead("D");
 
+       /* linkedList.addTail("W");
         linkedList.addTail("X");
         linkedList.addTail("Y");
+        linkedList.addTail("Z");*/
         linkedList.display();
 
     }
