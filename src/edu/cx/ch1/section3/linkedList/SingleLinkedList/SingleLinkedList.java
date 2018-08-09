@@ -47,7 +47,7 @@ public class SingleLinkedList {
         Node current = head;
         if (null == head) {
             head = newTailNode;
-        } else  {
+        } else {
             while (null != current.next) {//
                 current = current.next;//必须引入current
             }
@@ -62,7 +62,7 @@ public class SingleLinkedList {
      */
 
     //可能data不在链表内
-    public boolean delete(Object data){
+    public boolean delete(Object data) {
         if (0 == size) {
             return false;
         }
@@ -77,25 +77,25 @@ public class SingleLinkedList {
                 current = current.next;//current执行下一个节点，上下两个句也能保证p比c靠前一个节点
             }
         }
-            //匹配到了对应的node
-            if (current == head) {
-                head = current.next;
-            }else {
-                previous.next = current.next;//将previous.next 指向当前节点下一个；当前节点垃圾回收。
-            }
-            size--;
-            return true;
+        //匹配到了对应的node
+        if (current == head) {
+            head = current.next;
+        } else {
+            previous.next = current.next;//将previous.next 指向当前节点下一个；当前节点垃圾回收。
+        }
+        size--;
+        return true;
 
     }
 
-    public Node deleteHead(){
+    public Node deleteHead() {
         Node headNode = head;
-        if (0==size) {
+        if (0 == size) {
             return null;
         }
         head = head.next;
         size--;
-        return  headNode;
+        return headNode;
     }
 
     /**
@@ -119,6 +119,11 @@ public class SingleLinkedList {
             tempSize--;//显示后要将size复原
         }
 
+    }
+
+
+    public boolean isEmpty() {
+        return 0 == size;
     }
 
 
