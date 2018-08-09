@@ -98,14 +98,6 @@ public class SingleLinkedList {
         return  headNode;
     }
 
-    public Object deleteHead2(){
-        Object obj = head.data;
-        head = head.next;
-        size--;
-        return obj;
-    }
-
-
     /**
      * 查（-> 改，显示）
      */
