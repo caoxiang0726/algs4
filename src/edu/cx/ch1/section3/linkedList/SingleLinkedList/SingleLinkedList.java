@@ -88,6 +88,23 @@ public class SingleLinkedList {
 
     }
 
+    public Node deleteHead(){
+        Node headNode = head;
+        if (0==size) {
+            return null;
+        }
+        head = head.next;
+        size--;
+        return  headNode;
+    }
+
+    public Object deleteHead2(){
+        Object obj = head.data;
+        head = head.next;
+        size--;
+        return obj;
+    }
+
 
     /**
      * 查（-> 改，显示）
@@ -99,14 +116,15 @@ public class SingleLinkedList {
             System.out.print("[null]");
             return;
         }
-        while (size > 0) {
+        int tempSize = size;
+        while (tempSize > 0) {
             if (null == node.next) {//最后一个节点无需 ->
                 System.out.print("[" + node.data + "]");
             } else {
                 System.out.print("[" + node.data + "]->");
                 node = node.next;
             }
-            size--;
+            tempSize--;//显示后要将size复原
         }
 
     }
@@ -126,8 +144,13 @@ public class SingleLinkedList {
 
 //        linkedList.delete("NO EXIST");//还有问题
 //        linkedList.delete("A");
-        linkedList.delete("B");
+//        linkedList.delete("B");
 //        linkedList.delete("D");
+        linkedList.display();
+        System.out.println("");
+
+        linkedList.deleteHead();
+//        System.out.println(node.data);
         linkedList.display();
 
     }
