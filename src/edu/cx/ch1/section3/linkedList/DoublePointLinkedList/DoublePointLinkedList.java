@@ -47,10 +47,17 @@ public class DoublePointLinkedList {
 
 
     public Node addTail(Object data){
-
-
-
-        return null;
+        Node newTail = new Node(data);
+        if (null == tail) {
+            head = newTail;
+            tail = newTail;
+            size++;
+            return newTail;
+        }
+        tail.next = newTail;
+        tail = newTail;
+        size++;
+        return newTail;
 
     }
 
@@ -59,23 +66,39 @@ public class DoublePointLinkedList {
      * 删
      */
 
+    public boolean deleteHead(){
+        if (isEmpty()) {
+            return false;
+        }
+
+        if (null == head.next) {
+            head = null;
+            tail = null;
+        }else {
+            head = head.next;
+        }
+        size--;
+        return true;
+
+    }
+
 
     /**
      * 改 查
      */
 
     public void  display(){
-        int tempSize = size;
+        Node tempHead = head;
         if (isEmpty()) {
             System.out.println("[null]");
             return;
         }
 
-        while (null != head.next) {
-            System.out.print("["+head.data+"]->");
-            head = head.next;
+        while (null != tempHead.next) {
+            System.out.print("["+tempHead.data+"]->");
+            tempHead = tempHead.next;
         }
-        System.out.print("["+head.data+"]");
+        System.out.print("["+tempHead.data+"]");
     }
 
 
@@ -92,6 +115,19 @@ public class DoublePointLinkedList {
         linkedList.addHead("B");
         linkedList.addHead("C");
 
+
+        linkedList.addTail("X");
+        linkedList.addTail("Y");
+        linkedList.addTail("Z");
+
+
+
         linkedList.display();
+
+        linkedList.deleteHead();
+        linkedList.deleteHead();
+        System.out.println("");
+        linkedList.display();
+
     }
 }
