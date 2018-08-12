@@ -16,8 +16,8 @@ public class SingleLinkedList {
 
 
     private class Node {//
-        private Object data;
-        private Node next;
+         Object data;
+         Node next;
 
         public Node(Object data) {
             this.data = data;
