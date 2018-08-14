@@ -1,4 +1,4 @@
-package edu.cx.sort.basicSort.SelectionSort;
+package edu.cx.sort.basic.SelectionSort;
 
 /**
  * 方法模板可用于其他排序
@@ -51,5 +51,6 @@ public class SelectionSort {
         Integer[] a = {2,4,6,8,7,5,1,3,9};
         Comparable[] sort = sort(a);
         show(sort);
+        System.out.println(isSorted(sort));
     }
 }
