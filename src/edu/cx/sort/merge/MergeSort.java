@@ -4,7 +4,7 @@ import edu.cx.sort.SortUtil;
 
 /**
  * 将两个有序数组归并为一个有序数组
- *  栈溢出，估计有死循环
+ *
  */
 public class MergeSort {
     private static Comparable[] aux;//原地归并
@@ -25,7 +25,7 @@ public class MergeSort {
             return;//递归  第一规律
         }
 
-        int mid = lo + (lo + hi) / 2;
+        int mid = lo + (hi-lo) / 2;
         sort(a, lo, mid);//左半边归并
         sort(a, mid + 1, hi);//右半边归并
         merge(a, lo, mid, hi);
@@ -71,7 +71,7 @@ public class MergeSort {
 
         }*/
 
-        Integer[] a = new Integer[]{4,2,3, 1};
+        Integer[] a = new Integer[]{8,0,7,5,9,4,6,0,6,4,2,3, 1};
 
         sort(a);
 
