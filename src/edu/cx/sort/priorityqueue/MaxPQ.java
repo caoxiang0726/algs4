@@ -17,8 +17,8 @@ public class MaxPQ<Key extends Comparable<Key>> {
 
     private void exch(int i, int j) {
         Key v = pq[i];
-        pq[j] = pq[i];
-        pq[i] = v;
+        pq[i] = pq[j];
+        pq[j] = v;
     }
 
     private void swim(int k) {//堆的有序化，上浮
@@ -30,22 +30,20 @@ public class MaxPQ<Key extends Comparable<Key>> {
     }
 
     private void sink(int k) {//堆的有序化 下沉
-        int N = pq.length;
-        while (2*k <= N){
-            int j = 2*k;
-            if (j< N && less(j,j++)){//取两个子元素 较大者
+        while (2 * k <= N) {
+            int j = 2 * k;
+            if (j < N && less(j, j+1)) {//取两个子元素 较大者; 必须是j+1 不然比较的是同一个数字
                 j++;
             }
-            if (less(k,j)) {
+            if (less(j, k)) {
                 break;
             }
-            exch(j,k);
+            exch(j, k);
             k = j;
-
-
         }
-
     }
+
+
 
     public int size() {
         return N;
@@ -55,16 +53,47 @@ public class MaxPQ<Key extends Comparable<Key>> {
         return N == 0;
     }
 
-    public void insert(Key key){
-
+    public void insert(Key key) {
+        pq[++N] = key;
+        swim(N);
     }
 
-    public Key delMax(){
+    public Key delMax() {
+        Key max = pq[1];
+        exch(1, N--);
+        pq[N + 1] = null;
+        sink(1);
+        return max;
+    }
 
 
+    public void print(Key[] pq) {
+        for (Key key : pq) {
+            if (null != key) { //排除第0个元素，和其余的空值。
+                System.out.print(key + "->");
+            }
+        }
+        System.out.println("");
+    }
 
 
-        return null;
+    public static void main(String[] args) {
+        MaxPQ maxPQ = new MaxPQ(20);
+        maxPQ.insert(3);
+        maxPQ.insert(1);
+        maxPQ.insert(8);
+        maxPQ.insert(9);
+        maxPQ.insert(5);
+        maxPQ.insert(2);
+        maxPQ.insert(4);
+        maxPQ.insert(7);
+
+        maxPQ.print(maxPQ.pq);
+
+        maxPQ.delMax();
+        maxPQ.delMax();
+        maxPQ.print(maxPQ.pq);
+
     }
 
 
