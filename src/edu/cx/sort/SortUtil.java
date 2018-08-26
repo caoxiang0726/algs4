@@ -15,6 +15,12 @@ public class SortUtil {
         a[j] = t;
     }
 
+    public static void exch(int[] a, int i, int j) {
+        int t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+
     public static void show(Comparable[] a) {
         for (Comparable comparable : a) {
             System.out.print(comparable + "");
