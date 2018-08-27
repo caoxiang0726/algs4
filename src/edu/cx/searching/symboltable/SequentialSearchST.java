@@ -1,4 +1,4 @@
-package edu.cx.searching.balanceTree;
+package edu.cx.searching.symboltable;
 
 /**
  * 基于无序链表
