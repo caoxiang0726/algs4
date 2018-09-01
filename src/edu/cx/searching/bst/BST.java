@@ -1,5 +1,7 @@
 package edu.cx.searching.bst;
 
+import edu.princeton.cs.algs4.Queue;
+
 /**
  * Created by caoxiang on 2018/8/29.
  */
@@ -72,18 +74,30 @@ public class BST<Key extends Comparable<Key>, Value> {
 
             return x;
         }
-        // max(), min()
-        //select()
+
 
         public Key min() {
-            return min(root);
+            return min(root).key;
         }
 
-        private Key min(Node x) {
+        private Node min(Node x) {
             if (null == x.left) {
-                return x.key;
+                return x;
             }
-            return min(x.left);
+            return min(x);
+        }
+
+        public Key max() {
+            return max(root).key;
+        }
+
+        private Node max(Node x) {
+            if (null == x.right) {
+                return x;
+            }
+            return max(x.right);
+
+
         }
 
         public Key floor(Key key) {
@@ -114,11 +128,11 @@ public class BST<Key extends Comparable<Key>, Value> {
             }
         }
 
-        public Key select(int k){
+        public Key select(int k) {
             return select(root, k).key;
         }
 
-        private Node select (Node x,int k){
+        private Node select(Node x, int k) {
             if (null == x) {
                 return null;
             }
@@ -127,17 +141,17 @@ public class BST<Key extends Comparable<Key>, Value> {
             if (t == k) {
                 return x.left;
             }
-            if (k< t) {
+            if (k < t) {
                 return select(x.left, k);
             }
-            return select(x.right,k-t-1);
+            return select(x.right, k - t - 1);
         }
 
-        public int rank(Key key){
-            return rank(root,key);
+        public int rank(Key key) {
+            return rank(root, key);
         }
 
-        private int rank(Node x,Key key){
+        private int rank(Node x, Key key) {
             if (null == x) {
                 return 0;
             }
@@ -145,10 +159,99 @@ public class BST<Key extends Comparable<Key>, Value> {
             if (cmp == 0) {
                 return size(x.left);
             }
-            if (cmp <0) {
-                return rank(x.left,key);
+            if (cmp < 0) {
+                return rank(x.left, key);
             }
             return rank(x.right, key) + 1 + size(x.left);
+        }
+
+        public void deleteMin() {
+            root = deleteMin(root);
+        }
+
+        private Node deleteMin(Node x) {
+            if (x.left == null) {
+                return x.right;
+            }
+            x.left = deleteMin(x.left);
+            //整理节点
+            x.N = size(x.left) + size(x.right) + 1;
+            return x;
+
+        }
+
+        public void delete(Key key) { //难???
+            delete(root, key);
+        }
+
+        private Node delete(Node x, Key key) {
+            if (x == null) {
+                return null;
+            }
+
+            int cmp = key.compareTo(x.key);
+            if (cmp < 0) {
+                x.left = delete(x.left, key);
+            } else if (cmp > 0) {
+                x.right = delete(x.right, key);
+            } else {//找到
+                if (x.right == null) {//该节点最多只有一个子树
+                    return x.left;
+                }
+                if (x.left == null) {
+                    return x.right;
+                }
+                Node t = x;
+                x = min(t.right);
+                x.right = deleteMin(x.right);
+                x.left = t.left;
+            }
+            x.N = size(x.right) + size(x.left) + 1;
+            return x;
+
+        }
+
+        /**
+         * 范围查找
+         * 中序遍历-打印的由小到大
+         */
+
+        private void print(Node x) {
+            if (x == null) {
+                return;
+            }
+            print(x.left);
+            System.out.print(x.key);
+            print(x.right);
+        }
+
+        public Iterable<Key> keys() {
+            return keys(min(), max());
+        }
+
+        public Iterable<Key> keys(Key lo, Key hi) {
+            Queue<Key> queue = new Queue<Key>();
+            keys(root, queue, lo, hi);
+            return queue;
+
+        }
+
+        private void keys(Node x, Queue<Key> queue, Key lo, Key hi) {
+            if (null == x) {
+                return;
+            }
+            int cmplo = lo.compareTo(x.key);
+            int cmphi = hi.compareTo(x.key);
+            if (cmplo < 0) {
+                keys(x.left, queue, lo, hi);
+            }
+            if (cmplo >= 0 && cmphi <= 0) {
+                queue.enqueue(x.key);
+            }
+            if (cmphi > 0) {
+                keys(x.right, queue, lo, hi);
+            }
+
         }
 
 
