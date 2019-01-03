@@ -57,9 +57,36 @@ public class Graph {
         return E;
     }
 
+    public Bag<Integer> adj(int v) {
+        return adj[v];
+    }
+
     public int degree(int v) {
         validateVertex(v);
         return adj[v].size();
+    }
+
+    public int maxDegree() {
+        int max = 0;
+        for (int i = 0; i < V; i++) {
+            if (degree(i) > max) {
+                max = degree(i);
+            }
+        }
+        return max;
+    }
+
+    public int avgDegree(Graph G) {
+        return 2 * G.E() / G.V();
+    }
+
+    // number of self-loops
+    public static int numberOfSelfLoops(Graph G) {
+        int count = 0;
+        for (int v = 0; v < G.V(); v++)
+            for (int w : G.adj(v))
+                if (v == w) count++;
+        return count/2;   // self loop appears in adjacency list twice
     }
 
     public String toString() {//打印邻接表
@@ -72,7 +99,7 @@ public class Graph {
             }
             s += (NEWLINE);
         }
-        return s.toString();
+        return s;
     }
 
     public static void main(String[] args) throws NoSuchFieldException {
