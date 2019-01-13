@@ -80,4 +80,27 @@ public class EdgeWeightedGraph {
         return s.toString();
     }
 
+    public Iterable<Edge> adj(int v) {
+        validateVertex(v);
+        return adj[v];
+    }
+
+    public Iterable<Edge> edges() {
+        Bag<Edge> list = new Bag<Edge>();
+        for (int v = 0; v < V; v++) {
+            int selfLoops = 0;
+            for (Edge e : adj(v)) {
+                if (e.other(v) > v) {
+                    list.add(e);
+                }
+                // add only one copy of each self loop (self loops will be consecutive)
+                else if (e.other(v) == v) {
+                    if (selfLoops % 2 == 0) list.add(e);
+                    selfLoops++;
+                }
+            }
+        }
+        return list;
+    }
+
 }
