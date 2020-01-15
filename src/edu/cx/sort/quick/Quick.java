@@ -1,64 +1,64 @@
 package edu.cx.sort.quick;
 
-import edu.princeton.cs.algs4.StdRandom;
-
-import static edu.cx.sort.SortUtil.exch;
-import static edu.cx.sort.SortUtil.less;
-
-/**
- * Created by caoxiang on 2018/8/20.
- */
 public class Quick {
-    public static void sort(Comparable[] a) {
-        StdRandom.shuffle(a);
-        sort(a, 0, a.length - 1);
-        for (Comparable num : a) {
+    public static void sort(int[] arr) {
+        sort(arr, 0, arr.length - 1);
+        for (int num : arr) {
             System.out.print(num + "->");
         }
-
     }
 
-    private static void sort(Comparable[] a, int lo, int hi) {
+    private static void sort(int[] arr, int lo, int hi) {
         if (lo >= hi) {
             return;
         }
 
-        int j = patition1(a, lo, hi);
-        sort(a, lo, j - 1);
-        sort(a, j + 1, hi);
+        int j = patition(arr, lo, hi);
+        sort(arr, lo, j - 1);
+        sort(arr, j + 1, hi);
     }
 
-    public static int patition1(Comparable[] a, int lo, int hi) {
+    public static int patition(int[] arr, int lo, int hi) {
         //将数组分成3部分，a[lo ~ i-1], a[i] ,a[i+1~hi]
         int i = lo;
-        int j = hi + 1;//两个指针
-        Comparable v = a[lo];//切分元素
+        int j = hi + 1;
+        int pivot = arr[lo];//随机选一个 支点的值，这里取数组第一个值
 
         while (true) {
-            while (less(a[++i], v)) {
+            while (less(arr[++i], pivot)) {
                 if (i == hi) {
-                    break;
+                    break; //左边：找到比支点大的一个位置
                 }
             }
-            while (less(v, a[--j])) {//????
+            while (less(pivot, arr[--j])) {
                 if (j == lo) {
-                    break;
+                    break;//右边：找到比支点小的一个位置
                 }
             }
             if (i >= j) {
                 break;
             }
 
-            exch(a, i, j);// a[i] > a[j],所以要交换
+            exch(arr, i, j);// a[i] > a[j],所以要交换
         }
-        exch(a,lo,j);//将v换到正确的位置
+        exch(arr, lo, j);//返回新的支点位置 lo->j
         return j;
-
     }
 
     public static void main(String[] args) {
-        Integer[] a = new Integer[]{8,0,7,5,9,4,6,0,6,4,2,3,1};
+//        int[] a = new int[]{8, 0, 7, 5, 9, 4, 6, 0, 6, 4, 2, 3, 1};
+        int[] a = new int[]{2, 3, 1};
 
         sort(a);
+    }
+
+    public static void exch(int[] a, int i, int j) {
+        int t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+
+    public static boolean less(int v, int w) {
+        return v < w;
     }
 }
