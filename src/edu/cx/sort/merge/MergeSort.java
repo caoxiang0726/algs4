@@ -7,19 +7,19 @@ import edu.cx.sort.SortUtil;
  *
  */
 public class MergeSort {
-    private static Comparable[] aux;//原地归并
+    private static int[] aux;//原地归并
 
-    public static void sort(Comparable[] a) {
-        aux = new Comparable[a.length];
+    public static void sort(int[] a) {
+        aux = new int[a.length];
         sort(a, 0, a.length - 1);
-        for (Comparable num : a) {
+        for (int num : a) {
             System.out.print(num + "->");
         }
 
 
     }
 
-    private static void sort(Comparable[] a, int lo, int hi) {
+    private static void sort(int[] a, int lo, int hi) {
 
         if (hi <= lo) {
             return;//递归  第一规律
@@ -33,8 +33,8 @@ public class MergeSort {
     }
 
 
-    public static Comparable[] merge(Comparable[] a, int lo, int mid, int hi) {
-//        Comparable[] aux = new Comparable[a.length];
+    public static int[] merge(int[] a, int lo, int mid, int hi) {
+//        int[] aux = new int[a.length];
         //合并 lo~mid  和 mid+1 ~ hi
         int i = lo;
         int j = mid + 1;//前后分割点
@@ -65,13 +65,13 @@ public class MergeSort {
         int lo = 0;
         int hi = a.length -1;
         int mid = lo+(hi-lo)/2;
-        Comparable[] merge = merge(a, lo, mid, hi);
-        for (Comparable comparable : merge) {
-            System.out.print(comparable+"->");
+        int[] merge = merge(a, lo, mid, hi);
+        for (int int : merge) {
+            System.out.print(int+"->");
 
         }*/
 
-        Integer[] a = new Integer[]{8,0,7,5,9,4,6,0,6,4,2,3, 1};
+        int[] a = new int[]{8,0,7,5,9,11,4,6,0,6,4,2,15,3,1};
 
         sort(a);
 
